@@ -22,7 +22,34 @@ const getAllPost = async (req: Request, res: Response) => {
     res.send({
       success: true,
       message: "Get  All Post  Success",
-      data: result,
+      data: result.data,
+      total: result.total,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+const updatePost = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const data = req.body;
+  try {
+    const result = await PostService.updatePost(id, data);
+    res.send({
+      success: true,
+      message: "Update Successfully ",
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+const deletePost = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const result = await PostService.deletePost(id);
+    res.send({
+      success: true,
+      message: "delete Successfully ",
     });
   } catch (error) {
     res.send(error);
@@ -32,4 +59,6 @@ const getAllPost = async (req: Request, res: Response) => {
 export const postController = {
   CreatedPost,
   getAllPost,
+  updatePost,
+  deletePost,
 };
